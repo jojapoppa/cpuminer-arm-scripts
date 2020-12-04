@@ -2,9 +2,9 @@
 
 echo "Start copy system for DATA partition."
 
-./resetnet.sh
-
-rm /etc/udev/rules.d/70-persistent-net.rules
+# this does not appear necessary...
+#./resetnet.sh
+#rm /etc/udev/rules.d/70-persistent-net.rules
 
 mkdir -p /ddbr
 chmod 777 /ddbr
@@ -16,7 +16,7 @@ IMAGE_DTB="/boot/dtb.img"
 
 
 if [ ! -f $IMAGE_KERNEL ] ; then
-    echo "Not linux.img.  STOP install !!!"
+    echo "No linux.img.  STOP install !!!"
     return
 fi
 
@@ -40,6 +40,8 @@ echo "Copy BIN"
 tar -cf - bin | (cd $DIR_INSTALL; tar -xpf -)
 echo "Create BOOT"
 mkdir -p $DIR_INSTALL/boot
+#don't do this, so the script fails if you run
+#it on the wrong system. not needed...
 #tar -cf - boot | (cd $DIR_INSTALL; tar -xpf -)
 echo "Copy DEV"
 tar -cf - dev | (cd $DIR_INSTALL; tar -xpf -)
@@ -108,5 +110,5 @@ echo "Write env bootargs"
 /usr/sbin/fw_setenv initargs "root=/dev/data rootflags=data=writeback rw console=ttyS0,115200n8 console=tty0 no_console_suspend consoleblank=0 fsck.repair=yes net.ifnames=0 mac=\${mac}"
 
 echo "*******************************************"
-echo "Complete copy OS to eMMC parted DATA"
+echo "Completed copy of OS to eMMC data partition."
 echo "*******************************************"
