@@ -1,0 +1,30 @@
+(create blank img)
+dd if=/dev/zero of=/media/usb/gold.img bs=1024k seek=7500 count=0
+(7.5Gig)
+
+(give it a dos partition table)
+parted /media/usb/gold.img mklabel msdos
+
+(mount it as a loopback device)
+losetup -f /media/usb/gold.img
+losetup -a
+
+(you will see in the list... so check it - whatever # it is...)
+fdisk /dev/loop1
+(the command is p, to look at it)
+
+then create partitions
+type: n
+if your sector size above was 512, and the offset to partition 1 is 2048...
+then if you want partition 1 to be around 250M
+250000000 / 512 = 488281 + 2048 = 490329.25
+so use 490329 as your last partiion.
+
+type: a
+(to make partition 1 bootable
+
+then 'n' again to create a partition for the rest...
+then 'w' to save it
+
+etc...
+
