@@ -1,1 +1,1 @@
-dd if=/media/usb/gold.img of=/dev/mmcblk1
+dd if=/media/usb/newgold.img of=/dev/mmcblk1

@@ -1,0 +1,4 @@
+Instructions are here:
+https://bootlin.com/blog/uncompressed-linux-kernel-on-arm/
+
+
